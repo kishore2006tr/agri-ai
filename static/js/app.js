@@ -196,7 +196,7 @@ function renderPredictionResults(res, values) {
 
     statusDot.style.backgroundColor = colorVar;
     statusDot.style.boxShadow = `0 0 15px ${colorVar}`;
-    bannerBox.style.background = `linear-gradient(135deg, ${gradientBg} 0%, rgba(6, 182, 212, 0.05) 100%)`;
+    bannerBox.style.background = `linear-gradient(135deg, ${gradientBg} 0%, rgba(16, 185, 129, 0.08) 100%)`;
     bannerBox.style.borderColor = borderColor;
 
     // 2. Health Score Gauge
@@ -246,7 +246,7 @@ function renderPredictionResults(res, values) {
             const card = document.createElement('div');
             card.className = 'fert-card';
             card.innerHTML = `
-                <div class="fert-name">${rec.title} <span class="badge-tag info">${rec.category}</span></div>
+                <div class="fert-name">${rec.title} <span class="badge-tag success">${rec.category}</span></div>
                 <div class="crop-desc" style="margin-top: 4px;">${rec.detail}</div>
             `;
             fertContainer.appendChild(card);
@@ -307,8 +307,8 @@ function initRadarChart() {
                     label: 'Optimal Reference Line (100%)',
                     data: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
                     backgroundColor: 'transparent',
-                    borderColor: 'rgba(255, 255, 255, 0.25)',
-                    borderWidth: 1.5,
+                    borderColor: 'rgba(52, 211, 153, 0.55)',
+                    borderWidth: 1.8,
                     borderDash: [4, 4],
                     pointRadius: 0
                 }
@@ -408,8 +408,8 @@ function renderModelComparisonTable(comparison) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td style="font-weight: 700; color: #fff;">${name}</td>
-            <td><span class="badge-tag info">${stats.cv_accuracy_mean}%</span></td>
-            <td><span class="badge-tag success">${stats.test_accuracy}%</span></td>
+            <td><span class="badge-tag success" style="background: rgba(52, 211, 153, 0.15); color: #34d399;">${stats.cv_accuracy_mean}%</span></td>
+            <td><span class="badge-tag success" style="background: rgba(16, 185, 129, 0.25); color: #6ee7b7;">${stats.test_accuracy}%</span></td>
             <td>${stats.precision_weighted}%</td>
             <td>${stats.recall_weighted}%</td>
             <td><strong style="color: #34d399;">${stats.f1_weighted}%</strong></td>
@@ -427,13 +427,17 @@ function renderModelComparisonTable(comparison) {
                 {
                     label: '5-Fold CV Accuracy (%)',
                     data: cvAccs,
-                    backgroundColor: 'rgba(6, 182, 212, 0.65)',
+                    backgroundColor: 'rgba(52, 211, 153, 0.80)',
+                    borderColor: '#34d399',
+                    borderWidth: 1,
                     borderRadius: 6
                 },
                 {
                     label: 'Test Set Accuracy (%)',
                     data: testAccs,
-                    backgroundColor: 'rgba(16, 185, 129, 0.75)',
+                    backgroundColor: 'rgba(16, 185, 129, 0.95)',
+                    borderColor: '#10b981',
+                    borderWidth: 1,
                     borderRadius: 6
                 }
             ]
@@ -445,7 +449,7 @@ function renderModelComparisonTable(comparison) {
                 y: {
                     min: 98,
                     max: 100,
-                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                    grid: { color: 'rgba(52, 211, 153, 0.08)' },
                     ticks: { color: '#94a3b8' }
                 },
                 x: {
@@ -473,8 +477,9 @@ function renderFeatureImportanceChart(importances) {
                 label: 'Relative Importance (%)',
                 data: vals,
                 backgroundColor: [
-                    '#10b981', '#06b6d4', '#3b82f6', '#6366f1', '#8b5cf6',
-                    '#ec4899', '#f43f5e', '#f59e0b', '#84cc16', '#14b8a6', '#0ea5e9', '#a855f7'
+                    '#10b981', '#059669', '#34d399', '#15803d', '#22c55e',
+                    '#16a34a', '#4ade80', '#84cc16', '#65a30d', '#a3e635',
+                    '#6ee7b7', '#047857'
                 ],
                 borderRadius: 4
             }]
@@ -485,7 +490,7 @@ function renderFeatureImportanceChart(importances) {
             maintainAspectRatio: false,
             scales: {
                 x: {
-                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                    grid: { color: 'rgba(52, 211, 153, 0.08)' },
                     ticks: { color: '#94a3b8' }
                 },
                 y: {

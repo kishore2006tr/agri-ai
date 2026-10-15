@@ -19,8 +19,8 @@
     --accent-emerald: #10b981;
     --accent-amber: #f59e0b;
     --accent-rose: #f43f5e;
-    --accent-cyan: #06b6d4;
-    --accent-indigo: #6366f1;
+    --accent-cyan: #34d399;
+    --accent-indigo: #10b981;
 
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
@@ -55,9 +55,9 @@ body {
     display: flex;
     flex-direction: column;
     background-image: 
-        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.06) 0%, transparent 40%),
-        radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(52, 211, 153, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
     background-attachment: fixed;
 }
 
@@ -108,7 +108,7 @@ body {
     width: 44px;
     height: 44px;
     border-radius: var(--radius-md);
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 182, 212, 0.15));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(52, 211, 153, 0.20));
     border: 1px solid rgba(52, 211, 153, 0.35);
     display: flex;
     align-items: center;
@@ -593,7 +593,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 .result-banner {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.16) 0%, rgba(52, 211, 153, 0.08) 100%);
     border: 1px solid rgba(52, 211, 153, 0.3);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
@@ -802,7 +802,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .badge-tag.success { background: rgba(16, 185, 129, 0.15); color: #34d399; }
 .badge-tag.warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
 .badge-tag.danger { background: rgba(244, 63, 94, 0.15); color: #fb7185; }
-.badge-tag.info { background: rgba(6, 182, 212, 0.15); color: #38bdf8; }
+.badge-tag.info { background: rgba(52, 211, 153, 0.18); color: #34d399; }
 
 /* Fertilizer & Crops Grid */
 .fertilizer-cards-grid {
@@ -1075,7 +1075,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 
 .range-badge.low { background: rgba(244, 63, 94, 0.12); color: #fb7185; }
 .range-badge.opt { background: rgba(16, 185, 129, 0.12); color: #34d399; }
-.range-badge.high { background: rgba(6, 182, 212, 0.12); color: #38bdf8; }
+.range-badge.high { background: rgba(16, 185, 129, 0.20); color: #6ee7b7; }
 
 .guide-text {
     font-size: 0.82rem;
@@ -1087,7 +1087,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .text-success { color: #34d399 !important; }
 .text-warning { color: #fbbf24 !important; }
 .text-danger { color: #fb7185 !important; }
-.text-info { color: #38bdf8 !important; }
+.text-info { color: #34d399 !important; }
 
 /* Footer */
 .app-footer {
