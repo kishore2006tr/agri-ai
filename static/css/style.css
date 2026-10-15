@@ -141,6 +141,7 @@ body {
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, #ffffff 40%, var(--primary-light));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -281,6 +282,7 @@ body {
     margin-bottom: 0.85rem;
     background: linear-gradient(135deg, #ffffff 60%, #cbd5e1);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -896,6 +898,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .metric-value.highlight {
     background: linear-gradient(135deg, #ffffff 40%, var(--primary-light));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
