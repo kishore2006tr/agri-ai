@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-Powered Soil Fertility Classification and Precision Agronomic Recommendation Platform utilizing Machine Learning algorithms and ICAR/FAO standards.">
+    <title>AgriFertile AI - Soil Fertility Classification & Agronomic Advisor</title>
+    
+    <!-- Modern Typography: Outfit & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js for interactive analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand-group">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a10 10 0 0 0-9.8 12.2l.3.8A10 10 0 0 0 12 22a10 10 0 0 0 9.5-7l.3-.8A10 10 0 0 0 12 2z"></path>
+                        <path d="M12 12v6"></path>
+                        <path d="M12 12a4 4 0 0 1 4-4"></path>
+                        <path d="M12 12a4 4 0 0 0-4-4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <span class="brand-badge">ML Precision Agritech</span>
+                    <h1 class="brand-title">AgriFertile AI</h1>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="nav-tabs" role="tablist">
+                <button class="nav-tab active" id="tab-btn-diagnostic" onclick="switchTab('diagnostic')">
+                    <span class="tab-icon">🌱</span> Soil Diagnostic Studio
+                </button>
+                <button class="nav-tab" id="tab-btn-analytics" onclick="switchTab('analytics')">
+                    <span class="tab-icon">📊</span> Model Performance & XAI
+                </button>
+                <button class="nav-tab" id="tab-btn-batch" onclick="switchTab('batch')">
+                    <span class="tab-icon">📁</span> Batch CSV Predictor
+                </button>
+                <button class="nav-tab" id="tab-btn-guide" onclick="switchTab('guide')">
+                    <span class="tab-icon">📖</span> Agronomic Standards
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <div class="model-badge" id="header-model-badge">
+                    <span class="pulse-indicator"></span>
+                    <span id="header-model-name">Random Forest Classifier (100% Acc)</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <!-- Hero Banner Section -->
+        <section class="hero-banner">
+            <div class="hero-image-wrap">
+                <img src="/static/images/hero.jpg" alt="Precision soil analysis and high-tech agritech field" class="hero-bg-img" id="hero-banner-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-tag">Intelligent Soil Health & Nutrient Optimization</div>
+                <h2 class="hero-heading">Classify Soil Fertility & Unlock Maximum Crop Yield</h2>
+                <p class="hero-subtext">
+                    Trained on comprehensive agricultural soil health datasets following ICAR and FAO benchmarks.
+                    Analyze primary macronutrients (NPK), chemical properties (pH, EC, OC), and essential micronutrients
+                    for instant classification, tailored fertilizer schedules, and crop advisory.
+                </p>
+            </div>
+        </section>
+
+        <!-- TAB 1: SOIL DIAGNOSTIC STUDIO -->
+        <section id="tab-diagnostic" class="tab-panel active">
+            <div class="diagnostic-grid">
+                <!-- Left Column: Input Form & Sliders -->
+                <div class="card glass-card input-panel">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Soil Sample Parameters</h2>
+                            <p class="card-subtitle">Adjust sliders or pick a quick reference soil preset</p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-form" onclick="resetForm()">
+                            ↺ Reset
+                        </button>
+                    </div>
+
+                    <!-- Preset Selection Pills -->
+                    <div class="presets-container">
+                        <span class="presets-label">Quick Presets:</span>
+                        <div class="presets-chips" id="presets-list">
+                            <!-- Populated via JavaScript -->
+                            <button class="chip active" onclick="loadPreset('fertile_alluvial')">Fertile Alluvial</button>
+                            <button class="chip" onclick="loadPreset('moderate_field')">Moderate Farmland</button>
+                            <button class="chip" onclick="loadPreset('acidic_degraded')">Acidic Depleted</button>
+                            <button class="chip" onclick="loadPreset('saline_alkali')">Saline Alkali</button>
+                        </div>
+                    </div>
+
+                    <form id="soil-predict-form" onsubmit="event.preventDefault(); runPrediction();">
+                        <!-- Group 1: Primary Macronutrients (NPK) -->
+                        <div class="param-group">
+                            <div class="group-title">
+                                <span class="group-icon">🌿</span>
+                                <span>Primary Macronutrients (NPK)</span>
+                                <span class="group-badge">kg / hectare</span>
+                            </div>
+
+                            <div class="param-row">
+                                <div class="param-info">
+                                    <label for="input-N">Available Nitrogen (N)</label>
+                                    <span class="param-hint">Opt: 280 - 560 kg/ha</span>
+                                </div>
+                                <div class="param-controls">
+                                    <input type="range" id="range-N" min="50" max="680" step="1" value="480" oninput="syncParam('N', this.value)">
+                                    <input type="number" id="input-N" min="0" max="1000" step="0.1" value="480" oninput="syncParam('N', this.value, true)" class="num-box">
+                                </div>
+                            </div>
+
+                            <div class="param-row">
+                                <div class="param-info">
+                                    <label for="input-P">Available Phosphorus (P₂O₅)</label>
+                                    <span class="param-hint">Opt: 23 - 56 kg/ha</span>
+                                </div>
+                                <div class="param-controls">
+                                    <input type="range" id="range-P" min="4" max="95" step="0.5" value="58" oninput="syncParam('P', this.value)">
+                                    <input type="number" id="input-P" min="0" max="200" step="0.1" value="58" oninput="syncParam('P', this.value, true)" class="num-box">
+                                </div>
+                            </div>
+
+                            <div class="param-row">
+                                <div class="param-info">
+                                    <label for="input-K">Available Potassium (K₂O)</label>
+                                    <span class="param-hint">Opt: 140 - 280 kg/ha</span>
+                                </div>
+                                <div class="param-controls">
+                                    <input type="range" id="range-K" min="40" max="550" step="1" value="340" oninput="syncParam('K', this.value)">
+                                    <input type="number" id="input-K" min="0" max="800" step="0.1" value="340" oninput="syncParam('K', this.value, true)" class="num-box">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group 2: Physicochemical Properties -->
+                        <div class="param-group">
+                            <div class="group-title">
+                                <span class="group-icon">🧪</span>
+                                <span>Physicochemical Properties</span>
+                                <span class="group-badge">Soil Health Foundation</span>
+                            </div>
+
+                            <div class="param-row">
+                                <div class="param-info">
+                                    <label for="input-pH">Soil pH (Reaction)</label>
+                                    <span class="param-hint">Opt: 6.0 - 7.5 (Neutral)</span>
+                                </div>
+                                <div class="param-controls">
+                                    <input type="range" id="range-pH" min="3.8" max="9.8" step="0.05" value="6.8" oninput="syncParam('pH', this.value)">
+                                    <input type="number" id="input-pH" min="3.0" max="11.0" step="0.01" value="6.80" oninput="syncParam('pH', this.value, true)" class="num-box">
+                                </div>
+                            </div>
+
+                            <div class="param-row">
+                                <div class="param-info">
+                                    <label for="input-EC">Electrical Conductivity (EC)</label>
+                                    <span class="param-hint">Opt: &lt; 1.0 dS/m (Salinity)</span>
+                                </div>
+                                <div class="param-controls">
+                                    <input type="range" id="range-EC" min="0.1" max="4.5" step="0.05" value="0.55" oninput="syncParam('EC', this.value)">
+                                    <input type="number" id="input-EC" min="0" max="10" step="0.01" value="0.55" oninput="syncParam('EC', this.value, true)" class="num-box">
+                                </div>
+                            </div>
+
+                            <div class="param-row">
+                                <div class="param-info">
+                                    <label for="input-OC">Organic Carbon (OC %)</label>
+                                    <span class="param-hint">Opt: &gt; 0.75% (Microbial Life)</span>
+                                </div>
+                                <div class="param-controls">
+                                    <input type="range" id="range-OC" min="0.1" max="1.8" step="0.02" value="0.95" oninput="syncParam('OC', this.value)">
+                                    <input type="number" id="input-OC" min="0" max="5.0" step="0.01" value="0.95" oninput="syncParam('OC', this.value, true)" class="num-box">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group 3: Secondary & Essential Micronutrients -->
+                        <div class="param-group">
+                            <div class="group-title">
+                                <span class="group-icon">🔬</span>
+                                <span>Secondary & Micronutrients</span>
+                                <span class="group-badge">ppm (mg/kg)</span>
+                            </div>
+
+                            <div class="param-grid-2col">
+                                <div class="param-row compact">
+                                    <div class="param-info">
+                                        <label for="input-S">Sulfur (S)</label>
+                                        <span class="param-hint">Opt: 10 - 25 ppm</span>
+                                    </div>
+                                    <div class="param-controls">
+                                        <input type="number" id="input-S" min="0" max="60" step="0.1" value="22.0" oninput="syncParam('S', this.value, true)" class="num-box">
+                                    </div>
+                                </div>
+
+                                <div class="param-row compact">
+                                    <div class="param-info">
+                                        <label for="input-Zn">Zinc (Zn)</label>
+                                        <span class="param-hint">Opt: 0.6 - 1.5 ppm</span>
+                                    </div>
+                                    <div class="param-controls">
+                                        <input type="number" id="input-Zn" min="0" max="5.0" step="0.05" value="1.45" oninput="syncParam('Zn', this.value, true)" class="num-box">
+                                    </div>
+                                </div>
+
+                                <div class="param-row compact">
+                                    <div class="param-info">
+                                        <label for="input-Fe">Iron (Fe)</label>
+                                        <span class="param-hint">Opt: 4.5 - 12 ppm</span>
+                                    </div>
+                                    <div class="param-controls">
+                                        <input type="number" id="input-Fe" min="0" max="30.0" step="0.1" value="11.5" oninput="syncParam('Fe', this.value, true)" class="num-box">
+                                    </div>
+                                </div>
+
+                                <div class="param-row compact">
+                                    <div class="param-info">
+                                        <label for="input-Cu">Copper (Cu)</label>
+                                        <span class="param-hint">Opt: 0.2 - 0.8 ppm</span>
+                                    </div>
+                                    <div class="param-controls">
+                                        <input type="number" id="input-Cu" min="0" max="4.0" step="0.05" value="0.75" oninput="syncParam('Cu', this.value, true)" class="num-box">
+                                    </div>
+                                </div>
+
+                                <div class="param-row compact">
+                                    <div class="param-info">
+                                        <label for="input-Mn">Manganese (Mn)</label>
+                                        <span class="param-hint">Opt: 2.0 - 8.0 ppm</span>
+                                    </div>
+                                    <div class="param-controls">
+                                        <input type="number" id="input-Mn" min="0" max="20.0" step="0.1" value="6.2" oninput="syncParam('Mn', this.value, true)" class="num-box">
+                                    </div>
+                                </div>
+
+                                <div class="param-row compact">
+                                    <div class="param-info">
+                                        <label for="input-B">Boron (B)</label>
+                                        <span class="param-hint">Opt: 0.5 - 1.2 ppm</span>
+                                    </div>
+                                    <div class="param-controls">
+                                        <input type="number" id="input-B" min="0" max="3.0" step="0.05" value="1.05" oninput="syncParam('B', this.value, true)" class="num-box">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-predict">
+                                <span class="btn-icon">⚡</span> Run AI Fertility Classification
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right Column: Diagnostic Result Dashboard -->
+                <div class="card glass-card result-panel" id="result-container">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Fertility Assessment & Action Plan</h2>
+                            <p class="card-subtitle">Real-time ML classification output & agronomic guidance</p>
+                        </div>
+                        <div class="timestamp-badge" id="result-timestamp">Real-time Ready</div>
+                    </div>
+
+                    <!-- Top Result Hero Card -->
+                    <div class="result-banner" id="result-banner-box">
+                        <div class="fertility-status-box">
+                            <span class="status-eyebrow">Predicted Classification</span>
+                            <div class="status-main">
+                                <span class="status-indicator-dot" id="status-dot"></span>
+                                <h3 class="status-name" id="pred-class-text">High Fertility</h3>
+                            </div>
+                            <p class="status-sub" id="pred-confidence-text">Model Confidence: <strong>100%</strong></p>
+                        </div>
+
+                        <!-- Health Score Circular Gauge -->
+                        <div class="health-gauge-box">
+                            <div class="gauge-circle" id="gauge-circle">
+                                <div class="gauge-inner">
+                                    <span class="gauge-value" id="gauge-score">98</span>
+                                    <span class="gauge-label">Health Score</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Multi-Class Probability Distribution -->
+                    <div class="probabilities-container">
+                        <div class="prob-title">Classifier Confidence Distribution:</div>
+                        <div class="prob-bars">
+                            <div class="prob-item">
+                                <div class="prob-label-row">
+                                    <span class="prob-name">High Fertility</span>
+                                    <span class="prob-val" id="prob-high">100%</span>
+                                </div>
+                                <div class="prob-track">
+                                    <div class="prob-fill high" id="fill-high" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="prob-item">
+                                <div class="prob-label-row">
+                                    <span class="prob-name">Moderate Fertility</span>
+                                    <span class="prob-val" id="prob-mod">0%</span>
+                                </div>
+                                <div class="prob-track">
+                                    <div class="prob-fill mod" id="fill-mod" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="prob-item">
+                                <div class="prob-label-row">
+                                    <span class="prob-name">Low Fertility</span>
+                                    <span class="prob-val" id="prob-low">0%</span>
+                                </div>
+                                <div class="prob-track">
+                                    <div class="prob-fill low" id="fill-low" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diagnostic Radar Chart -->
+                    <div class="chart-section">
+                        <h4 class="section-heading">Nutrient Profile vs Optimal Agricultural Benchmark</h4>
+                        <div class="radar-chart-container">
+                            <canvas id="soilRadarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Parameter Badges Breakdown Grid -->
+                    <div class="param-badges-section">
+                        <h4 class="section-heading">Soil Parameter Status Breakdown</h4>
+                        <div class="badges-grid" id="param-badges-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Tailored Fertilizer Prescription -->
+                    <div class="recommendations-section">
+                        <h4 class="section-heading">🌾 Precision Fertilizer Dosage & Soil Amendments</h4>
+                        <div class="fertilizer-cards-grid" id="fertilizer-cards-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Recommended Crops -->
+                    <div class="crops-section">
+                        <h4 class="section-heading">🌱 Optimal Crop Varieties for Current Soil</h4>
+                        <div class="crops-grid" id="crops-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: MODEL PERFORMANCE & EXPLAINABLE AI -->
+        <section id="tab-analytics" class="tab-panel">
+            <div class="analytics-layout">
+                <!-- Summary Metric Cards -->
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-label">Best Classifier</div>
+                        <div class="metric-value highlight" id="analytics-best-model">Random Forest</div>
+                        <div class="metric-desc">Tuned with 200 estimators</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Test Set Accuracy</div>
+                        <div class="metric-value text-success" id="analytics-test-acc">100.0%</div>
+                        <div class="metric-desc">Evaluated on 640 held-out samples</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">5-Fold Cross-Validation</div>
+                        <div class="metric-value text-info" id="analytics-cv-acc">99.96%</div>
+                        <div class="metric-desc">Stratified K-Fold stability score</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Soil Samples</div>
+                        <div class="metric-value" id="analytics-samples">3,200</div>
+                        <div class="metric-desc">12 soil chemical features</div>
+                    </div>
+                </div>
+
+                <!-- Model Comparison & Feature Importances -->
+                <div class="analytics-grid">
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Algorithm Performance Comparison</h3>
+                                <p class="card-subtitle">Benchmarked across 5 diverse classification architectures</p>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="models-table">
+                                <thead>
+                                    <tr>
+                                        <th>Model Algorithm</th>
+                                        <th>5-Fold CV Accuracy</th>
+                                        <th>Test Accuracy</th>
+                                        <th>Precision (Weighted)</th>
+                                        <th>Recall</th>
+                                        <th>F1-Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="model-comparison-tbody">
+                                    <!-- Populated via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="chart-container-bar">
+                            <canvas id="modelComparisonChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Feature Importances (XAI) -->
+                    <div class="card glass-card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Feature Importance Ranking (Gini Impurity)</h3>
+                                <p class="card-subtitle">Quantifying the biological drivers of soil fertility</p>
+                            </div>
+                        </div>
+                        <div class="chart-container-bar">
+                            <canvas id="featureImportanceChart"></canvas>
+                        </div>
+                        <div class="xai-callout">
+                            <strong>Agronomic Insight:</strong>
+                            <p id="xai-explanation">
+                                Nitrogen (N), Organic Carbon (OC), and Available Phosphorus (P) account for over 65% of the model's predictive weight. 
+                                In balance with soil pH, these parameters represent the core fertility drivers in agricultural ecosystems.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: BATCH CSV PREDICTOR -->
+        <section id="tab-batch" class="tab-panel">
+            <div class="batch-layout">
+                <div class="card glass-card batch-upload-card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Bulk Soil Testing & Batch Classification</h2>
+                            <p class="card-subtitle">Upload CSV containing multi-acre soil test records for instant bulk classification</p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="downloadSampleCSV()">
+                            ⬇ Download Sample CSV Template
+                        </button>
+                    </div>
+
+                    <div class="upload-dropzone" id="dropzone" onclick="document.getElementById('csv-file-input').click()">
+                        <div class="dropzone-icon">📥</div>
+                        <div class="dropzone-text">
+                            <strong>Click to select</strong> or drag and drop your soil test CSV file here
+                        </div>
+                        <div class="dropzone-hint">
+                            Must include columns: N, P, K, pH, EC, OC, S, Zn, Fe, Cu, Mn, B
+                        </div>
+                        <input type="file" id="csv-file-input" accept=".csv" style="display: none;" onchange="handleCSVUpload(this.files[0])">
+                    </div>
+
+                    <div class="batch-status-box" id="batch-status" style="display: none;">
+                        <div class="spinner"></div>
+                        <span id="batch-status-text">Processing soil samples through machine learning model...</span>
+                    </div>
+
+                    <!-- Batch Summary Results -->
+                    <div id="batch-results-area" style="display: none;">
+                        <div class="batch-metrics-row">
+                            <div class="batch-stat">
+                                <span class="batch-stat-val" id="batch-total-count">0</span>
+                                <span class="batch-stat-label">Total Samples Processed</span>
+                            </div>
+                            <div class="batch-stat">
+                                <span class="batch-stat-val text-success" id="batch-high-count">0</span>
+                                <span class="batch-stat-label">High Fertility Samples</span>
+                            </div>
+                            <div class="batch-stat">
+                                <span class="batch-stat-val text-warning" id="batch-mod-count">0</span>
+                                <span class="batch-stat-label">Moderate Fertility Samples</span>
+                            </div>
+                            <div class="batch-stat">
+                                <span class="batch-stat-val text-danger" id="batch-low-count">0</span>
+                                <span class="batch-stat-label">Low Fertility / Depleted</span>
+                            </div>
+                        </div>
+
+                        <div class="batch-actions-bar">
+                            <h3 class="card-title">Batch Prediction Preview</h3>
+                            <button class="btn btn-success" id="btn-download-results" onclick="downloadBatchResults()">
+                                💾 Download Enriched Predictions CSV
+                            </button>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table" id="batch-preview-table">
+                                <thead>
+                                    <tr id="batch-table-header"></tr>
+                                </thead>
+                                <tbody id="batch-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: AGRONOMIC STANDARDS & GUIDE -->
+        <section id="tab-guide" class="tab-panel">
+            <div class="card glass-card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Agricultural Soil Health Standards & Guidelines</h2>
+                        <p class="card-subtitle">Official ICAR, USDA-NRCS & FAO parameter classification thresholds</p>
+                    </div>
+                </div>
+
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <div class="guide-header">
+                            <span class="guide-icon">🌱</span>
+                            <h4>Available Nitrogen (N)</h4>
+                        </div>
+                        <div class="guide-ranges">
+                            <div class="range-badge low">&lt; 280 kg/ha: Low / Deficient</div>
+                            <div class="range-badge opt">280 - 560 kg/ha: Medium / Optimal</div>
+                            <div class="range-badge high">&gt; 560 kg/ha: High / Surfeit</div>
+                        </div>
+                        <p class="guide-text">
+                            Drives vegetative biomass and green leaf chlorophyll synthesis. Nitrogen deficiency causes stunted growth and chlorosis (yellowing) in older leaves.
+                        </p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-header">
+                            <span class="guide-icon">🌾</span>
+                            <h4>Available Phosphorus (P₂O₅)</h4>
+                        </div>
+                        <div class="guide-ranges">
+                            <div class="range-badge low">&lt; 23 kg/ha: Low</div>
+                            <div class="range-badge opt">23 - 56 kg/ha: Medium / Optimal</div>
+                            <div class="range-badge high">&gt; 56 kg/ha: High</div>
+                        </div>
+                        <p class="guide-text">
+                            Stimulates root elongation, early plant vigor, ATP energy metabolism, and flowering. Fixation is severe below pH 5.5 and above pH 8.0.
+                        </p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-header">
+                            <span class="guide-icon">🛡️</span>
+                            <h4>Available Potassium (K₂O)</h4>
+                        </div>
+                        <div class="guide-ranges">
+                            <div class="range-badge low">&lt; 140 kg/ha: Low</div>
+                            <div class="range-badge opt">140 - 280 kg/ha: Medium / Optimal</div>
+                            <div class="range-badge high">&gt; 280 kg/ha: High</div>
+                        </div>
+                        <p class="guide-text">
+                            Controls stomatal conductance, water stress regulation, lodging resistance, and disease defense. Critical during grain development.
+                        </p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-header">
+                            <span class="guide-icon">🧪</span>
+                            <h4>Soil pH (Reaction)</h4>
+                        </div>
+                        <div class="guide-ranges">
+                            <div class="range-badge low">&lt; 6.0: Acidic (Lime needed)</div>
+                            <div class="range-badge opt">6.0 - 7.5: Ideal / Neutral</div>
+                            <div class="range-badge high">&gt; 8.0: Alkaline / Sodic</div>
+                        </div>
+                        <p class="guide-text">
+                            Controls microbial enzyme activity and nutrient bioavailability. Acidic soils induce Al/Mn toxicity, while alkaline soils precipitate Fe and Zn.
+                        </p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-header">
+                            <span class="guide-icon">🍂</span>
+                            <h4>Organic Carbon (OC %)</h4>
+                        </div>
+                        <div class="guide-ranges">
+                            <div class="range-badge low">&lt; 0.50%: Low (Depleted)</div>
+                            <div class="range-badge opt">0.50 - 0.75%: Medium</div>
+                            <div class="range-badge high">&gt; 0.75%: High (Fertile)</div>
+                        </div>
+                        <p class="guide-text">
+                            The cornerstone of soil physical structure, cation exchange capacity (CEC), moisture holding capacity, and microbiological abundance.
+                        </p>
+                    </div>
+
+                    <div class="guide-card">
+                        <div class="guide-header">
+                            <span class="guide-icon">⚡</span>
+                            <h4>Electrical Conductivity (EC)</h4>
+                        </div>
+                        <div class="guide-ranges">
+                            <div class="range-badge opt">&lt; 1.0 dS/m: Normal / Non-saline</div>
+                            <div class="range-badge low">1.0 - 2.0 dS/m: Critical</div>
+                            <div class="range-badge high">&gt; 2.0 dS/m: Injurious (Saline)</div>
+                        </div>
+                        <p class="guide-text">
+                            Measures the concentration of soluble electrolyte salts. High salinity induces osmotic drought stress in crop roots even under moist soil conditions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>AgriFertile AI - Precision Machine Learning Model for Soil Fertility Classification</p>
+            <p class="footer-subtext">Built with Random Forest &amp; Scikit-Learn | Standards: ICAR &amp; FAO Guidelines</p>
+        </div>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

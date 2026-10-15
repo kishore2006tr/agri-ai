@@ -1,0 +1,460 @@
+{
+  "best_model_name": "Random Forest",
+  "best_test_accuracy": 100.0,
+  "best_is_scaled": false,
+  "feature_cols": [
+    "N",
+    "P",
+    "K",
+    "pH",
+    "EC",
+    "OC",
+    "S",
+    "Zn",
+    "Fe",
+    "Cu",
+    "Mn",
+    "B"
+  ],
+  "class_names": [
+    "High",
+    "Low",
+    "Moderate"
+  ],
+  "model_comparison": {
+    "Random Forest": {
+      "cv_accuracy_mean": 99.96,
+      "cv_accuracy_std": 0.08,
+      "test_accuracy": 100.0,
+      "precision_weighted": 100.0,
+      "recall_weighted": 100.0,
+      "f1_weighted": 100.0,
+      "confusion_matrix": [
+        [
+          179,
+          0,
+          0
+        ],
+        [
+          0,
+          205,
+          0
+        ],
+        [
+          0,
+          0,
+          256
+        ]
+      ],
+      "classification_report": {
+        "High": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 179.0
+        },
+        "Low": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 205.0
+        },
+        "Moderate": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 256.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        }
+      },
+      "use_scaled": false
+    },
+    "Extra Trees": {
+      "cv_accuracy_mean": 99.96,
+      "cv_accuracy_std": 0.08,
+      "test_accuracy": 100.0,
+      "precision_weighted": 100.0,
+      "recall_weighted": 100.0,
+      "f1_weighted": 100.0,
+      "confusion_matrix": [
+        [
+          179,
+          0,
+          0
+        ],
+        [
+          0,
+          205,
+          0
+        ],
+        [
+          0,
+          0,
+          256
+        ]
+      ],
+      "classification_report": {
+        "High": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 179.0
+        },
+        "Low": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 205.0
+        },
+        "Moderate": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 256.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        }
+      },
+      "use_scaled": false
+    },
+    "HistGradientBoosting": {
+      "cv_accuracy_mean": 99.92,
+      "cv_accuracy_std": 0.1,
+      "test_accuracy": 100.0,
+      "precision_weighted": 100.0,
+      "recall_weighted": 100.0,
+      "f1_weighted": 100.0,
+      "confusion_matrix": [
+        [
+          179,
+          0,
+          0
+        ],
+        [
+          0,
+          205,
+          0
+        ],
+        [
+          0,
+          0,
+          256
+        ]
+      ],
+      "classification_report": {
+        "High": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 179.0
+        },
+        "Low": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 205.0
+        },
+        "Moderate": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 256.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        }
+      },
+      "use_scaled": false
+    },
+    "Support Vector Machine (RBF)": {
+      "cv_accuracy_mean": 99.96,
+      "cv_accuracy_std": 0.08,
+      "test_accuracy": 100.0,
+      "precision_weighted": 100.0,
+      "recall_weighted": 100.0,
+      "f1_weighted": 100.0,
+      "confusion_matrix": [
+        [
+          179,
+          0,
+          0
+        ],
+        [
+          0,
+          205,
+          0
+        ],
+        [
+          0,
+          0,
+          256
+        ]
+      ],
+      "classification_report": {
+        "High": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 179.0
+        },
+        "Low": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 205.0
+        },
+        "Moderate": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 256.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        }
+      },
+      "use_scaled": true
+    },
+    "Neural Network (MLP)": {
+      "cv_accuracy_mean": 99.96,
+      "cv_accuracy_std": 0.08,
+      "test_accuracy": 100.0,
+      "precision_weighted": 100.0,
+      "recall_weighted": 100.0,
+      "f1_weighted": 100.0,
+      "confusion_matrix": [
+        [
+          179,
+          0,
+          0
+        ],
+        [
+          0,
+          205,
+          0
+        ],
+        [
+          0,
+          0,
+          256
+        ]
+      ],
+      "classification_report": {
+        "High": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 179.0
+        },
+        "Low": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 205.0
+        },
+        "Moderate": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 256.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 640.0
+        }
+      },
+      "use_scaled": true
+    }
+  },
+  "feature_importances": {
+    "OC": 0.2426,
+    "P": 0.1838,
+    "K": 0.1169,
+    "N": 0.1111,
+    "Zn": 0.1056,
+    "Mn": 0.0991,
+    "S": 0.0387,
+    "Cu": 0.0386,
+    "B": 0.0242,
+    "Fe": 0.0164,
+    "pH": 0.0158,
+    "EC": 0.0072
+  },
+  "benchmarks": {
+    "N": {
+      "name": "Available Nitrogen",
+      "unit": "kg/ha",
+      "low_max": 280,
+      "opt_min": 280,
+      "opt_max": 560,
+      "high_min": 560,
+      "min_disp": 0,
+      "max_disp": 700
+    },
+    "P": {
+      "name": "Available Phosphorus",
+      "unit": "kg/ha",
+      "low_max": 23,
+      "opt_min": 23,
+      "opt_max": 56,
+      "high_min": 56,
+      "min_disp": 0,
+      "max_disp": 110
+    },
+    "K": {
+      "name": "Available Potassium",
+      "unit": "kg/ha",
+      "low_max": 140,
+      "opt_min": 140,
+      "opt_max": 280,
+      "high_min": 280,
+      "min_disp": 0,
+      "max_disp": 600
+    },
+    "pH": {
+      "name": "Soil pH",
+      "unit": "",
+      "low_max": 6.0,
+      "opt_min": 6.0,
+      "opt_max": 7.5,
+      "high_min": 7.5,
+      "min_disp": 3.0,
+      "max_disp": 10.0
+    },
+    "EC": {
+      "name": "Electrical Conductivity",
+      "unit": "dS/m",
+      "opt_min": 0.1,
+      "opt_max": 1.0,
+      "critical": 1.5,
+      "saline": 2.0,
+      "min_disp": 0,
+      "max_disp": 5.0
+    },
+    "OC": {
+      "name": "Organic Carbon",
+      "unit": "%",
+      "low_max": 0.5,
+      "opt_min": 0.5,
+      "opt_max": 0.75,
+      "high_min": 0.75,
+      "min_disp": 0,
+      "max_disp": 2.0
+    },
+    "S": {
+      "name": "Available Sulfur",
+      "unit": "ppm",
+      "low_max": 10.0,
+      "opt_min": 10.0,
+      "opt_max": 25.0,
+      "high_min": 25.0,
+      "min_disp": 0,
+      "max_disp": 50.0
+    },
+    "Zn": {
+      "name": "Zinc (Zn)",
+      "unit": "ppm",
+      "low_max": 0.6,
+      "opt_min": 0.6,
+      "opt_max": 1.5,
+      "high_min": 1.5,
+      "min_disp": 0,
+      "max_disp": 3.5
+    },
+    "Fe": {
+      "name": "Iron (Fe)",
+      "unit": "ppm",
+      "low_max": 4.5,
+      "opt_min": 4.5,
+      "opt_max": 12.0,
+      "high_min": 12.0,
+      "min_disp": 0,
+      "max_disp": 30.0
+    },
+    "Cu": {
+      "name": "Copper (Cu)",
+      "unit": "ppm",
+      "low_max": 0.2,
+      "opt_min": 0.2,
+      "opt_max": 0.8,
+      "high_min": 0.8,
+      "min_disp": 0,
+      "max_disp": 3.0
+    },
+    "Mn": {
+      "name": "Manganese (Mn)",
+      "unit": "ppm",
+      "low_max": 2.0,
+      "opt_min": 2.0,
+      "opt_max": 8.0,
+      "high_min": 8.0,
+      "min_disp": 0,
+      "max_disp": 15.0
+    },
+    "B": {
+      "name": "Boron (B)",
+      "unit": "ppm",
+      "low_max": 0.5,
+      "opt_min": 0.5,
+      "opt_max": 1.2,
+      "high_min": 1.2,
+      "min_disp": 0,
+      "max_disp": 2.5
+    }
+  },
+  "total_samples": 3200,
+  "train_samples": 2560,
+  "test_samples": 640
+}
